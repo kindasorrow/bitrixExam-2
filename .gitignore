@@ -1,0 +1,130 @@
+/www/counters.inc
+*.DS_Store
+node_modules
+/sassdoc
+*.idea
+/.sass-cache
+/tmp
+/www/bitrix
+!/www/bitrix/.settings.php
+/www/upload
+/www/local/php_interface/lib/dompdf/lib/fonts/log*
+/www/sitemap.xml*
+/www/sitemap_*
+/www/web.config
+/import/*
+/www/import/log/*
+!/www/import/log/temp
+*.sublime-project
+*.sublime-workspace
+/.htaccess
+/.htpasswd
+*.log
+/config/.settings.php
+/config/dbconn.php
+/vendor
+/www/tmp
+/www/preimport/*.xml
+/www/preimport/*.log
+/www/*.xml
+/www/*.jpg
+/www/*.JPG
+/www/*.png
+/www/*.csv
+/www/*.txt
+/www/*.pdf
+/www/_tools/redirects/*
+env.lock
+/.env
+/.env.ext
+/www/test/upload-folder
+
+/www/pano
+/www/panorams
+/www/local/modules/kelnik.geoip/data/geo_city.csv
+/www/local/modules/kelnik.geoip/data/geo_ip.csv
+/www/robots.txt
+
+# access
+.access.php
+*.log
+.htaccess
+.htpasswd
+
+# Binaries
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.war
+*.ear
+*.sar
+*.class
+
+# temp files
+.temp
+
+# Maven
+target/
+
+# IntelliJ project files
+*.iml
+*.iws
+*.ipr
+.idea/
+
+# vscode
+.vscode
+
+# eclipse project file
+.settings/
+.classpath
+.project
+
+# NetBeans specific
+nbproject/*
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+# node.js
+node_modules
+frontend/node_modules
+
+# zend studio for eclipse project files
+.buildpath
+.settings
+
+# windows thumbnail cache
+Thumbs.db
+
+# composer vendor dir
+/vendor
+
+# composer itself is not needed
+composer.phar
+
+# Mac DS_Store Files
+.DS_Store
+
+# phpunit itself is not needed
+phpunit.phar
+
+# local phpunit config
+/phpunit.xml
+tests/_output/*
+tests/_support/_generated
+
+# vagrant folder
+/.vagrant
+
+# runtime
+/runtime
+
