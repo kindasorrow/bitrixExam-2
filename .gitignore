@@ -128,3 +128,4 @@ tests/_support/_generated
 # runtime
 /runtime
 
+/mysql/

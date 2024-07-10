@@ -33,6 +33,10 @@ $arTemplateParameters = array(
 		"DEFAULT" =>"N",
 		"REFRESH"=> "Y",
 	),
+    "REL_CANONICAL" => Array(
+        "NAME" => GetMessage("REL_CANONICAL"),
+        "TYPE" => "STRING",
+    )
 );
 
 if (($arCurrentValues['USE_SHARE'] ?? 'N') === 'Y')
