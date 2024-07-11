@@ -4,6 +4,7 @@ IncludeModuleLangFile(__FILE__);
 AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", array("Ex2", "OnBeforeProductUpdateHandler"));
 AddEventHandler("main", "OnEpilog", array("Ex2", "Error404Handler"));
 AddEventHandler("main", "OnBeforeEventAdd", array("Ex2", "OnBeforeEventAddHandler"));
+AddEventHandler("main", "OnBuildGlobalMenu", array("Ex2", "OnBuildGlobalMenu"));
 
 class Ex2
 {
@@ -67,8 +68,7 @@ class Ex2
                     '#LOGIN#' => $USER->GetLogin(),
                     '#AUTHOR#' => $arFields['AUTHOR']
                 ]);
-            }
-            else {
+            } else {
                 $message = GetMessage("EX2_MAIL_UNAUTHORISED_USER", ['#AUTHOR#' => $arFields['AUTHOR']]);
             }
             $arFields['AUTHOR'] = $message;
@@ -85,6 +85,43 @@ class Ex2
             ]);
         }
 
+    }
+
+    public static function OnBuildGlobalMenu(&$aGlobalMenu, &$aModuleMenu): void
+    {
+        global $USER;
+        $isManager = $isAdmin = false;
+
+        $userGroup = CUser::GetUserGroupList($USER->GetID());
+        $contentGroupID = CGroup::GetList(
+            "c_sort",
+            "asc",
+            array("STRING_ID" => "content_editor")
+        )->Fetch()["ID"];
+        while ($group = $userGroup->Fetch()) {
+
+            if ($group["GROUP_ID"] == 1) {
+                $isAdmin = true;
+            }
+
+            if ($group["GROUP_ID"] == $contentGroupID) {
+                $isManager = true;
+            }
+        }
+
+        if ($isManager && !$isAdmin) {
+
+            foreach ($aModuleMenu as $key => $value) {
+                if (isset($value['items_id']) && $value['items_id'] == "menu_iblock_/news") {
+                    $aModuleMenu = [
+                        $key => $value
+                    ];
+                    break;
+                }
+            }
+
+            $aGlobalMenu = ["global_menu_content" => $aGlobalMenu["global_menu_content"]];
+        }
     }
 }
 
