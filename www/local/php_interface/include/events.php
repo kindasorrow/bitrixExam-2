@@ -2,6 +2,7 @@
 IncludeModuleLangFile(__FILE__);
 
 AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", array("Ex2", "OnBeforeProductUpdateHandler"));
+AddEventHandler("main", "OnEpilog", array("Ex2", "Error404Handler"));
 
 class Ex2
 {
@@ -29,6 +30,28 @@ class Ex2
         }
 
         return true;
+    }
+
+    public static function Error404Handler() {
+        if(defined('ERROR_404') && ERROR_404 == "Y") {
+            global $APPLICATION;
+            $APPLICATION->RestartBuffer();
+
+            include $_SERVER['DOCUMENT_ROOT'] . SITE_TEMPLATE_PATH . '/header.php';
+            include $_SERVER['DOCUMENT_ROOT'] . SITE_TEMPLATE_PATH . '/404.php';
+            include $_SERVER['DOCUMENT_ROOT'] . SITE_TEMPLATE_PATH . '/footer.php';
+
+            CEventLog::Add(
+
+                array(
+
+                    "SEVERITY" => "INFO",
+                    "AUTH_TYPE_ID" => "ERROR_404",
+                    "MODULE_ID" => "main",
+                    "DESCRIPTION" => $APPLICATION->GetCurPage(),
+                    )
+            );
+        }
     }
 }
 
