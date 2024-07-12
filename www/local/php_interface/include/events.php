@@ -5,6 +5,7 @@ AddEventHandler("iblock", "OnBeforeIBlockElementUpdate", array("Ex2", "OnBeforeP
 AddEventHandler("main", "OnEpilog", array("Ex2", "Error404Handler"));
 AddEventHandler("main", "OnBeforeEventAdd", array("Ex2", "OnBeforeEventAddHandler"));
 AddEventHandler("main", "OnBuildGlobalMenu", array("Ex2", "OnBuildGlobalMenu"));
+AddEventHandler("main", "OnBeforeProlog", array("Ex2", "TitleDescriptionHandler"));
 
 class Ex2
 {
@@ -121,6 +122,22 @@ class Ex2
             }
 
             $aGlobalMenu = ["global_menu_content" => $aGlobalMenu["global_menu_content"]];
+        }
+    }
+    public static function TitleDescriptionHandler(): void {
+
+        global $APPLICATION;
+        $page = $APPLICATION->GetCurDir();
+        if(\Bitrix\Main\Loader::includeModule('iblock')) {
+            $arSelect = array("ID", "IBLOCK_ID","NAME", "PROPERTY_TITLE", "PROPERTY_DESCRIPTION");//IBLOCK_ID и ID обязательно должны быть указаны, см. описание arSelectFields выше
+            $arFilter = array("IBLOCK_ID" => 6, 'NAME' => $page);
+
+            $res = CIBlockElement::GetList(array(), $arFilter, false, false, $arSelect);
+
+            if ($arRes = $res->Fetch()) {
+                $APPLICATION->SetPageProperty('title', $arRes['PROPERTY_TITLE_VALUE']);
+                $APPLICATION->SetPageProperty('description', $arRes['PROPERTY_DESCRIPTION_VALUE']);
+            }
         }
     }
 }
