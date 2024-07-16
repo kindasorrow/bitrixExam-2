@@ -60,13 +60,22 @@ if ($this->startResultCache()) { // Если нету кеша
     // Получение элементов продукции
 
     $obElement = CIBlockElement::GetList(
-        array(),
+        array('NAME'=> 'asc', 'SORT' => 'asc'),
         array("IBLOCK_ID" => $arParams["CATALOG_IBLOCK_ID"], "ACTIVE" => "Y", "SECTION_ID" => $arSectionID),
         false,
         false,
         ["ID", "IBLOCK_SECTION_ID", "IBLOCK_ID", "NAME", "PROPERTY_MATERIAL", "PROPERTY_ARTNUMBER", "PROPERTY_PRICE"]);
-
     while ($element = $obElement->Fetch()) {
+
+        $element["DETAIL_PAGE_URL"] = str_replace(
+          array('#SECTION_ID#', '#ELEMENT_ID#'),
+          array(
+            $element["IBLOCK_SECTION_ID"],
+            $element["ID"]
+          ),
+            $arParams["TEMPLATE_DETAIL_URL"]
+        );
+
         foreach ($arSection[$element["IBLOCK_SECTION_ID"]][$arParams["FOREIGN_CODE_CATALOG"]] as $newsID) {
             $arNews[$newsID]["ELEMENTS"][] = $element;
         }

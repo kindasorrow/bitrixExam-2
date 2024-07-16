@@ -24,6 +24,12 @@ $arComponentParameters = array(
 			"PARENT" => "BASE",
 			"TYPE" => "STRING",
 		],
+		"TEMPLATE_DETAIL_URL" => [
+			"NAME" => GetMessage("DETAIL"),
+			"PARENT" => "BASE",
+			"TYPE" => "STRING",
+			"DEFAULT" => "/catalog_exam/#SECTION_ID#/#ELEMENT_ID#/",
+		]
 	),
 );
 ?>
