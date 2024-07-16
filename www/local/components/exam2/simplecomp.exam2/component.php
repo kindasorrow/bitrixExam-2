@@ -21,7 +21,11 @@ if (!isset($arParams["NEWS_IBLOCK_ID"])) {
     $arParams["NEWS_IBLOCK_ID"] = 0;
 }
 
-if ($this->startResultCache()) { // Если нету кеша
+$isFilterSet = isset($_REQUEST["F"]);
+
+
+
+if ($this->startResultCache($isFilterSet)) { // Если нету кеша
 
     // Получение новостей
 
@@ -57,11 +61,27 @@ if ($this->startResultCache()) { // Если нету кеша
         $arSection[$section["ID"]] = $section;
     }
 
+
+    $arFilterElements = [
+        "IBLOCK_ID" => $arParams["CATALOG_IBLOCK_ID"],
+        "ACTIVE" => "Y",
+        "SECTION_ID" => $arSectionID
+    ];
+    if($isFilterSet) {
+        $arFilterElements[] = [
+            ["<=PROPERTY_PRICE" => 1700, "PROPERTY_MATERIAL" => "Дерево, ткань"],
+            ["<PROPERTY_PRICE" => 1500, "PROPERTY_MATERIAL" => "Металл, пластик"],
+            "LOGIC" => "OR"
+        ];
+
+        $this->abortResultCache();
+    }
+
     // Получение элементов продукции
 
     $obElement = CIBlockElement::GetList(
         array('NAME'=> 'asc', 'SORT' => 'asc'),
-        array("IBLOCK_ID" => $arParams["CATALOG_IBLOCK_ID"], "ACTIVE" => "Y", "SECTION_ID" => $arSectionID),
+        $arFilterElements,
         false,
         false,
         ["ID", "IBLOCK_SECTION_ID", "IBLOCK_ID", "NAME", "PROPERTY_MATERIAL", "PROPERTY_ARTNUMBER", "PROPERTY_PRICE"]);
