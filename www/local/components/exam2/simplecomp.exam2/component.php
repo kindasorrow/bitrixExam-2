@@ -62,6 +62,8 @@ if ($this->startResultCache($isFilterSet)) { // Если нету кеша
     }
 
 
+    // Получение элементов продукции
+
     $arFilterElements = [
         "IBLOCK_ID" => $arParams["CATALOG_IBLOCK_ID"],
         "ACTIVE" => "Y",
@@ -77,15 +79,30 @@ if ($this->startResultCache($isFilterSet)) { // Если нету кеша
         $this->abortResultCache();
     }
 
-    // Получение элементов продукции
-
     $obElement = CIBlockElement::GetList(
         array('NAME'=> 'asc', 'SORT' => 'asc'),
         $arFilterElements,
         false,
         false,
         ["ID", "IBLOCK_SECTION_ID", "IBLOCK_ID", "NAME", "PROPERTY_MATERIAL", "PROPERTY_ARTNUMBER", "PROPERTY_PRICE"]);
+
     while ($element = $obElement->Fetch()) {
+
+
+
+        // ЭРМИТАЖ
+
+        $arButtons = CIBlock::GetPanelButtons(
+            $arParams["CATALOG_IBLOCK_ID"],
+            $element["ID"],
+            0,
+            array("SECTION_BUTTONS"=>false, "SESSID"=>false)
+        );
+
+        $element["EDIT_LINK"] = $arButtons["edit"]["edit_element"]["ACTION_URL"];
+        $element["DELETE_LINK"] = $arButtons["edit"]["delete_element"]["ACTION_URL"];
+        $this->arResult['ADD_LINK'] = $arButtons["edit"]["add_element"]["ACTION_URL"];
+
 
         $element["DETAIL_PAGE_URL"] = str_replace(
           array('#SECTION_ID#', '#ELEMENT_ID#'),
@@ -110,7 +127,10 @@ if ($this->startResultCache($isFilterSet)) { // Если нету кеша
         }
     }
 
-    $this->arResult = ["NEWS" => $arNews, "PRODUCT_COUNT" => $productCount];
+    $this->arResult['NEWS'] = $arNews;
+    $this->arResult["PRODUCT_COUNT"] = $productCount;
+    $this->arResult['IBLOCK_ID'] = $arParams["CATALOG_IBLOCK_ID"];
+
     $this->setResultCacheKeys(array("PRODUCT_COUNT"));
     $this->includeComponentTemplate();
 
