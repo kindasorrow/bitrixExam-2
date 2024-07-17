@@ -2,10 +2,6 @@
 <p><b><?= GetMessage("SIMPLECOMP_EXAM2_CAT_TITLE") ?>:</b></p>
 <p><?=GetMessage("SIMPLECOMP_EXAM2_COUNT", ["#count#" => $arResult['PRODUCT_COUNT']])?></p>
 
-<pre>
-<?php print_r($arResult) ?>
-</pre>
-
 
 <?php
 

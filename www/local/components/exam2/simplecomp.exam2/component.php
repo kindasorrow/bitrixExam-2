@@ -23,6 +23,21 @@ if (!isset($arParams["NEWS_IBLOCK_ID"])) {
 
 $isFilterSet = isset($_REQUEST["F"]);
 
+global $USER;
+
+if($USER->IsAuthorized()) {
+    $arButtons = CIBlock::GetPanelButtons($arParams["CATALOG_IBLOCK_ID"]);
+    echo "<pre>";
+    //print_r($arButtons);
+    echo "</pre>";
+    $this->AddIncludeAreaIcon([
+        'ID' => "linklb",
+        'TITLE' => GetMessage('IBLOCK_ADMIN_LINK'),
+        'URL' => $arButtons['submenu']['element_list']['ACTION_URL'],
+        'IN_PARAMS_MENU' => true,
+        'IN_MENU' => false,
+    ]);
+}
 
 
 if ($this->startResultCache($isFilterSet)) { // Если нету кеша
