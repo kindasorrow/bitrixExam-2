@@ -36,4 +36,5 @@ $url = $APPLICATION->GetCurPage() . "?F=Y";
             <? endif; ?>
         </li>
     <?php endforeach; ?>
+    <?=$arResult["NAV_STRING"]?>
 </ul>

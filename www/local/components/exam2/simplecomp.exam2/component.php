@@ -39,8 +39,9 @@ if($USER->IsAuthorized()) {
     ]);
 }
 
+$arNavigation = CDBResult::GetNavParams($arParams["ELEMENT_PER_PAGE"]);
 
-if ($this->startResultCache($isFilterSet)) { // Если нету кеша
+if ($this->startResultCache($isFilterSet, $arNavigation)) { // Если нету кеша
 
     // Получение новостей
 
@@ -53,9 +54,11 @@ if ($this->startResultCache($isFilterSet)) { // Если нету кеша
         array(),
         array("IBLOCK_ID" => $arParams["NEWS_IBLOCK_ID"], "ACTIVE" => "Y"),
         false,
-        false,
+        ["nPageSize" => $arParams["ELEMENT_PER_PAGE"], "bShowAll" => false],
         ["ID", "NAME", "ACTIVE_FROM"]
     );
+
+    $arResult["NAV_STRING"] = $obNews->GetPageNavString("");
 
     while ($news = $obNews->Fetch()) {
         $arNewsID[] = $news["ID"];

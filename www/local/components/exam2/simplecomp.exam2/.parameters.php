@@ -29,7 +29,14 @@ $arComponentParameters = array(
 			"PARENT" => "BASE",
 			"TYPE" => "STRING",
 			"DEFAULT" => "/catalog_exam/#SECTION_ID#/#ELEMENT_ID#/",
-		]
+		],
+		"ELEMENT_PER_PAGE" => [
+			"NAME" => GetMessage("ELEMENT_PER_PAGE"),
+			"PARENT" => "BASE",
+			"TYPE" => "STRING",
+			"DEFAULT" => 2,
+		],
+		
 	),
 );
-?>
+
