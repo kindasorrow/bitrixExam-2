@@ -24,6 +24,7 @@ if (!isset($arParams["NEWS_IBLOCK_ID"])) {
 $isFilterSet = isset($_REQUEST["F"]);
 
 global $USER;
+global $CACHE_MANAGER;
 
 if($USER->IsAuthorized()) {
     $arButtons = CIBlock::GetPanelButtons($arParams["CATALOG_IBLOCK_ID"]);
@@ -41,8 +42,9 @@ if($USER->IsAuthorized()) {
 
 $arNavigation = CDBResult::GetNavParams($arParams["ELEMENT_PER_PAGE"]);
 
-if ($this->startResultCache($isFilterSet, $arNavigation)) { // Если нету кеша
+if ($this->startResultCache(false, [$isFilterSet, $arNavigation], '/servicesIblock')) { // Если нету кеша
 
+    $CACHE_MANAGER->RegisterTag('iblock_id_3');
     // Получение новостей
 
     $arNews = array();

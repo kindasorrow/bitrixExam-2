@@ -7,6 +7,7 @@
 
 $url = $APPLICATION->GetCurPage() . "?F=Y";
 
+echo time();
 ?>
 
 <a href="<?=$url?>"><?=$url?></a>
