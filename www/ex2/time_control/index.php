@@ -29,5 +29,14 @@ $APPLICATION->SetTitle("Оценка производительности");
     Работа компонента с самой долгой загрузкой: bitrix:catalog: 0.1205 с
     </br>
     ------
+    <h2>[ex2-11]</h2>
+
+    /products/index.php - 28.10%
+    </br>
+    ------
+    </br>
+    Работа компонента с самой долгой загрузкой: bitrix:catalog: 0.1205 с
+    </br>
+    ------
 
 <? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>
