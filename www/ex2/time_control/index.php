@@ -1,18 +1,33 @@
 <?
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $APPLICATION->SetTitle("Оценка производительности");
-?>products/index.php - 18.02%
+?>
 
+    <h2>[ex2-88]</h2>
 
-</br>
+    products/index.php - 18.02%
+    </br>
+    ------
+    </br>
+    Работа компонента по умолчанию: bitrix:news.detail: 0.0356 с; Запросов: 5 (0.0021 с); кеш: 7 КБ
+    </br>
+    ------
+    </br>
 
-Работа компонента по умолчанию: bitrix:news.detail: 0.0356 с; Запросов: 5 (0.0021 с); кеш: 7 КБ
+    Работа компонента только с необходимым кешированием:bitrix: news.detail: 0.0386 с; Запросов: 6 (0.0026 с); кеш: 4 КБ
+    </br>
+    ------
+    </br>
+    Разница в объемах кеша: 3 КБ
 
-</br>
+    <h2>[ex2-10]</h2>
 
-Работа компонента только с необходимым кешированием:bitrix: news.detail: 0.0386 с; Запросов: 6 (0.0026 с); кеш: 4 КБ
+    /products/index.php - 28.10%
+    </br>
+    ------
+    </br>
+    Работа компонента с самой долгой загрузкой: bitrix:catalog: 0.1205 с
+    </br>
+    ------
 
-</br>
-
-Разница в объемах кеша: 3 КБ
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+<? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>
