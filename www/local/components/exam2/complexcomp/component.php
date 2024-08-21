@@ -8,7 +8,9 @@
 /** @global CDatabase $DB */
 /** @global CUser $USER */
 /** @global CMain $APPLICATION */
-
+echo '<pre>';
+print_r($arParams);
+echo '</pre>';
 if($arParams["USE_FILTER"]=="Y")
 {
 	if(strlen($arParams["FILTER_NAME"])<=0 || !preg_match("/^[A-Za-z_][A-Za-z01-9_]*$/", $arParams["FILTER_NAME"]))
@@ -21,14 +23,16 @@ $arDefaultUrlTemplates404 = array(
 	"sections_top" => "",
 	"section" => "#SECTION_ID#/",
 	"detail" => "#SECTION_ID#/#ELEMENT_ID#/",
-    "exampage" => "exam/new/#PARAM1#/",
+    "exampage" => "exam/new/#PARAM1#/?PARAM2=#PARAM2#",
 );
 
 $arDefaultVariableAliases404 = array(
     "exampage" => ["PARAM2"],
 );
 
-$arDefaultVariableAliases = array();
+$arDefaultVariableAliases = array(
+    "exampage" => ["PARAM2" => "PARAM2"],
+);
 
 $arComponentVariables = array(
 	"SECTION_ID",
@@ -72,6 +76,7 @@ if($arParams["SEF_MODE"] == "Y")
 	)
 		$b404 = true;
 
+
 	if($b404 && CModule::IncludeModule('iblock'))
 	{
 		$folder404 = str_replace("\\", "/", $arParams["SEF_FOLDER"]);
@@ -109,7 +114,6 @@ else
 	CComponentEngine::InitComponentVariables(false, $arComponentVariables, $arVariableAliases, $arVariables);
 
 	$componentPage = "";
-    var_dump($arVariables);
 	if(isset($arVariables["ELEMENT_ID"]) && intval($arVariables["ELEMENT_ID"]) > 0)
 		$componentPage = "detail";
 	elseif(isset($arVariables["ELEMENT_CODE"]) && strlen($arVariables["ELEMENT_CODE"]) > 0)
@@ -118,7 +122,7 @@ else
 		$componentPage = "section";
 	elseif(isset($arVariables["SECTION_CODE"]) && strlen($arVariables["SECTION_CODE"]) > 0)
 		$componentPage = "section";
-    elseif(isset($arParams["PARAM1"]))
+    elseif(isset($arVariables["PARAM1"]))
         $componentPage = "exampage";
 	else
 		$componentPage = "sections_top";
@@ -128,7 +132,9 @@ else
 		"URL_TEMPLATES" => Array(
 			"section" => htmlspecialcharsbx($APPLICATION->GetCurPage())."?".$arVariableAliases["SECTION_ID"]."=#SECTION_ID#",
 			"detail" => htmlspecialcharsbx($APPLICATION->GetCurPage())."?".$arVariableAliases["SECTION_ID"]."=#SECTION_ID#"."&".$arVariableAliases["ELEMENT_ID"]."=#ELEMENT_ID#",
-		),
+            "exampage" => htmlspecialcharsbx($APPLICATION->GetCurPage())."?".$arVariableAliases["PARAM1"]."=#PARAM1#"."&".$arVariableAliases["PARAM2"]."=#PARAM2#",
+
+            ),
 		"VARIABLES" => $arVariables,
 		"ALIASES" => $arVariableAliases
 	);

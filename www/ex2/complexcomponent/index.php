@@ -53,7 +53,8 @@ $APPLICATION->SetTitle("Комплексный компонент");
 		"SECTION_PAGE_ELEMENT_COUNT" => "20",
 		"SECTION_SORT_FIELD" => "sort",
 		"SECTION_SORT_ORDER" => "asc",
-		"SEF_MODE" => "N",
+		"SEF_FOLDER" => "/ex2/complexcomponent/",
+		"SEF_MODE" => "Y",
 		"SET_LAST_MODIFIED" => "N",
 		"SET_STATUS_404" => "N",
 		"SET_TITLE" => "Y",
@@ -75,12 +76,16 @@ $APPLICATION->SetTitle("Комплексный компонент");
 		"USE_RATING" => "N",
 		"USE_REVIEW" => "N",
 		"COMPONENT_TEMPLATE" => ".default",
-		"SEF_FOLDER" => "/ex2/complexcomponent/",
+		"SEF_URL_TEMPLATES" => array(
+			"sections_top" => "",
+			"section" => "#SECTION_ID#/",
+			"detail" => "#SECTION_ID#/#ELEMENT_ID#/",
+			"exampage" => "exam/new/#PARAM1#/?PARAM2=#PARAM2#",
+		),
 		"VARIABLE_ALIASES" => array(
-			"SECTION_ID" => "SECTION_ID",
-			"ELEMENT_ID" => "ELEMENT_ID",
-			"PARAM1" => "PARAM1",
-			"PARAM2" => "PARAM2",
+			"exampage" => array(
+				"PARAM2" => "PARAM2",
+			),
 		)
 	),
 	false

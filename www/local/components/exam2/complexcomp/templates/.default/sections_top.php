@@ -15,16 +15,13 @@ $this->setFrameMode(true);
 <?
 //ссылка на страницу станицу exampage 
 //$url = ...
-
+echo "<pre>";
+print_r($arResult);
+echo "</pre>";
 $param1 = 123;
 $param2 = 456;
-$url = "";
+$url = str_replace(['#PARAM1#', '#PARAM2#'], [$param1, $param2], $arResult['URL_TEMPLATES']['exampage']);
 
-if ($arParams["SEF_MODE"] == "Y") {
-    $url = $arParams["SEF_FOLDER"] . str_replace('#PARAM1#', $param1, $arParams['SEF_URL_TEMPLATES']['exampage']) . "/?PARAM2=" . $param2;
-} else {
-    $url = $APPLICATION->GetCurPage() . "?PARAM1=" . $param1 . "&PARAM2=" . $param2;
-}
 ?>
 <?= GetMessage("EXAM_TEXT_LINK_CP_PHOTO") ?> <a href="<?= $url ?>"><?= $url ?></a>
 
